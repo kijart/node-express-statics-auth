@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "author": "Luis Miguel Vicente Fuentes <kijart@gmail.com>",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "npm run start:pro",
+    "start:dev": "NODE_ENV=development nodemon server.js",
+    "start:pro": "NODE_ENV=production node server.js"
   },
   "dependencies": {
     "express": "^4.16.4",
