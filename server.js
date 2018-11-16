@@ -57,8 +57,16 @@ app.get('/auth/google/callback',
     failureRedirect: '/'
   }),
   (req, res) => {
-    // Success authentication
-    res.redirect('/docs/');
+    const userDomainEmail = req.user.emails[0].value.split('@')[1];
+    const allowedDomains = (process.env.ALLOWED_DOMAINS || '').split(',').map(domain => domain.trim())
+
+    if (allowedDomains.indexOf(userDomainEmail) > -1) {
+      // Success authentication
+      res.redirect('/docs/');
+    } else {
+      // Unsuccess authentication
+      res.redirect('/auth/logout');
+    }
   }
 );
 
