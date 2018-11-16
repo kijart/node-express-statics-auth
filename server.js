@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session')
 const dotenv = require('dotenv');
 const express = require('express');
+const helmet = require('helmet')
 const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
@@ -14,6 +15,9 @@ const auth = require('./auth');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Middleware to secure Express
+app.use(helmet());
 
 // Middleware to log HTTP requests
 app.use(morgan('combined'));
