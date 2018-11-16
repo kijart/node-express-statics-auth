@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session')
 const dotenv = require('dotenv');
 const express = require('express');
@@ -22,6 +23,9 @@ app.use(cookieSession({
   keys: [process.env.SESSION_SECRET],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
+// Middleware to parse JSON body
+app.use(bodyParser.json());
 
 // Passport setup
 auth(passport);
