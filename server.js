@@ -5,6 +5,7 @@ const express = require('express');
 const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
+const serveIndex = require('serve-index')
 
 // Load environment variables
 dotenv.config();
@@ -44,9 +45,12 @@ const isUserAuthenticated = (req, res, next) => {
   res.redirect('/auth/google');
 }
 
-// Protect docs folder
-app.use('/docs/*', isUserAuthenticated);
+// Protect docs directory
+app.use('/docs', isUserAuthenticated);
+// Serve static files on public directory
 app.use(express.static(path.join(__dirname, 'public')));
+// Serve directory index on public docs directory
+app.use('/docs', serveIndex(path.join(__dirname, 'public/docs'), { 'icons': true }));
 
 // Index
 app.get('/', function(req, res) {

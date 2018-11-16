@@ -16,7 +16,8 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.6",
     "passport": "^0.4.0",
-    "passport-google-oauth": "^1.0.0"
+    "passport-google-oauth": "^1.0.0",
+    "serve-index": "^1.9.1"
   },
   "devDependencies": {
     "dotenv": "^6.1.0"
