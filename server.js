@@ -24,6 +24,9 @@ app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
+// Setup handlebars.js view engine
+app.set('view engine', 'hbs');
+
 // Middleware to parse JSON body
 app.use(bodyParser.json());
 
@@ -45,6 +48,13 @@ const isUserAuthenticated = (req, res, next) => {
 app.use('/docs/*', isUserAuthenticated);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Index
+app.get('/', function(req, res) {
+  res.render('index', {
+    user: req.user
+  });
+});
+
 // Google strategy
 app.get('/auth/google',
   passport.authenticate('google', {
@@ -62,7 +72,7 @@ app.get('/auth/google/callback',
 
     if (allowedDomains.indexOf(userDomainEmail) > -1) {
       // Success authentication
-      res.redirect('/docs/');
+      res.redirect('/');
     } else {
       // Unsuccess authentication
       res.redirect('/auth/logout');
