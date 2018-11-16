@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const express = require('express');
+const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
 const session = require('express-session');
@@ -11,6 +12,9 @@ const auth = require('./auth');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Middleware to log HTTP requests
+app.use(morgan('combined'));
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
