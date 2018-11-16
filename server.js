@@ -1,11 +1,64 @@
+const dotenv = require('dotenv');
 const express = require('express');
-const http = require('http');
+const passport = require('passport');
 const path = require('path');
+const session = require('express-session');
+
+// Load environment variables
+dotenv.config();
+
+const auth = require('./auth');
 
 const app = express();
+const port = process.env.PORT || 3000;
 
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Passport setup
+auth(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Middleware to check if the user is authenticated
+const isUserAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.redirect('/auth/google');
+}
+
+// Protect docs folder
+app.use('/docs/*', isUserAuthenticated);
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.listen(3000, function(){
-  console.log('Server listening on port 3000');
+// Google strategy
+app.get('/auth/google',
+  passport.authenticate('google', {
+    scope: ['email']
+  })
+);
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/'
+  }),
+  (req, res) => {
+    // Success authentication
+    res.redirect('/docs/');
+  }
+);
+
+app.get('/auth/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+// Run
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`);
 });
