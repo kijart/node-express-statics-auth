@@ -1,3 +1,4 @@
+const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session')
 const dotenv = require('dotenv');
 const express = require('express');
@@ -22,6 +23,9 @@ app.use(cookieSession({
   keys: [process.env.SESSION_SECRET],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
+
+// Middleware to parse JSON body
+app.use(bodyParser.json());
 
 // Passport setup
 auth(passport);
@@ -53,8 +57,16 @@ app.get('/auth/google/callback',
     failureRedirect: '/'
   }),
   (req, res) => {
-    // Success authentication
-    res.redirect('/docs/');
+    const userDomainEmail = req.user.emails[0].value.split('@')[1];
+    const allowedDomains = (process.env.ALLOWED_DOMAINS || '').split(',').map(domain => domain.trim())
+
+    if (allowedDomains.indexOf(userDomainEmail) > -1) {
+      // Success authentication
+      res.redirect('/docs/');
+    } else {
+      // Unsuccess authentication
+      res.redirect('/auth/logout');
+    }
   }
 );
 
