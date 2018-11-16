@@ -1,9 +1,9 @@
+const cookieSession = require('cookie-session')
 const dotenv = require('dotenv');
 const express = require('express');
 const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
-const session = require('express-session');
 
 // Load environment variables
 dotenv.config();
@@ -16,10 +16,11 @@ const port = process.env.PORT || 3000;
 // Middleware to log HTTP requests
 app.use(morgan('combined'));
 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
+// Middleware cookie session
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET],
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
 // Passport setup

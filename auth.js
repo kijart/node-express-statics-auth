@@ -14,9 +14,7 @@ module.exports = function(passport) {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: '/auth/google/callback'
   }, (accessToken, refreshToken, profile, callback) => {
-    return callback(null, {
-      profile: profile,
-      accessToken: accessToken
-    });
+    // return user object (with profile info)
+    return callback(null, profile);
   }));
 };

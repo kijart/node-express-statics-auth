@@ -4,11 +4,13 @@
   "version": "1.0.0",
   "author": "Luis Miguel Vicente Fuentes <kijart@gmail.com>",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "npm run start:pro",
+    "start:dev": "NODE_ENV=development nodemon server.js",
+    "start:pro": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.4",
-    "express-session": "^1.15.6",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.6",
     "passport": "^0.4.0",
