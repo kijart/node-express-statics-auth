@@ -1,10 +1,15 @@
 node_modules
 
+# SSL certificates
+certs/*
+!certs/.gitkeep
+
 # environment files
 .env
 
 # protected documents folder
-public/docs
+public/docs/*
+!public/docs/.gitkeep
 
 # misc
 .DS_Store

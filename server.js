@@ -2,11 +2,13 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session')
 const dotenv = require('dotenv');
 const express = require('express');
+const fs = require('fs');
 const helmet = require('helmet')
+const https = require('https');
 const morgan = require('morgan');
 const passport = require('passport');
 const path = require('path');
-const serveIndex = require('serve-index')
+const serveIndex = require('serve-index');
 
 // Load environment variables
 dotenv.config();
@@ -93,7 +95,23 @@ app.get('/auth/logout', (req, res) => {
   res.redirect('/');
 });
 
-// Run
-app.listen(port, () => {
-  console.log(`Listening on port ${port} in ${app.get("env")} mode`);
-});
+// Start server
+if (
+  process.env.SSL_ENABLED === 'true' &&
+  process.env.SSL_KEY_PATH &&
+  process.env.SSL_CERT_PATH
+) {
+  // Run server over HTTPS with a SSL certificate
+  https.createServer({
+    key: fs.readFileSync(process.env.SSL_KEY_PATH),
+    cert: fs.readFileSync(process.env.SSL_CERT_PATH)
+  }, app)
+    .listen(port, () => {
+      console.log(`Listening on port ${port} in ${app.get("env")} mode over HTTPS`);
+    });
+} else {
+  // Run server over HTTP without a SSL certificate
+  app.listen(port, () => {
+    console.log(`Listening on port ${port} in ${app.get("env")} mode over HTTP`);
+  });
+}
