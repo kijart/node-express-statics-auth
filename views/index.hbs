@@ -1,0 +1,7 @@
+{{#if user}}
+	<h2>Hello, {{ user.displayName }}.</h2>
+	<p>Access to <a href="/docs/">docs</a></p>
+{{else}}
+	<h2>Welcome!</h2>
+	<p>Please <a href="/auth/google">log In</a>.</p>
+{{/if}}
