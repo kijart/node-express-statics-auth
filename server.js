@@ -97,7 +97,7 @@ app.get('/auth/logout', (req, res) => {
 
 // Start server
 if (
-  process.env.SSL_ENABLED === 'true' &&
+  process.env.EXPRESS_SSL_ENABLED === 'true' &&
   process.env.SSL_KEY_PATH &&
   process.env.SSL_CERT_PATH
 ) {
