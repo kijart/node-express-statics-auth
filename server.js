@@ -1,9 +1,11 @@
+'use strict';
+
 const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session');
 const dotenv = require('dotenv');
 const express = require('express');
 const fs = require('fs');
-const helmet = require('helmet')
+const helmet = require('helmet');
 const https = require('https');
 const morgan = require('morgan');
 const passport = require('passport');
@@ -49,7 +51,7 @@ const isUserAuthenticated = (req, res, next) => {
   }
 
   res.redirect('/auth/google');
-}
+};
 
 // Protect docs directory
 app.use('/docs', isUserAuthenticated);
@@ -78,7 +80,7 @@ app.get('/auth/google/callback',
   }),
   (req, res) => {
     const userDomainEmail = req.user.emails[0].value.split('@')[1];
-    const allowedDomains = (process.env.ALLOWED_DOMAINS || '').split(',').map(domain => domain.trim())
+    const allowedDomains = (process.env.ALLOWED_DOMAINS || '').split(',').map(domain => domain.trim());
 
     if (allowedDomains.indexOf(userDomainEmail) > -1) {
       // Success authentication
@@ -107,11 +109,11 @@ if (
     cert: fs.readFileSync(process.env.SSL_CERT_PATH)
   }, app)
     .listen(port, () => {
-      console.log(`Listening on port ${port} in ${app.get("env")} mode over HTTPS`);
+      console.log(`Listening on port ${port} in ${app.get('env')} mode over HTTPS`);
     });
 } else {
   // Run server over HTTP without a SSL certificate
   app.listen(port, () => {
-    console.log(`Listening on port ${port} in ${app.get("env")} mode over HTTP`);
+    console.log(`Listening on port ${port} in ${app.get('env')} mode over HTTP`);
   });
 }
