@@ -1,0 +1,23 @@
+version: '3'
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "443:443"
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+    restart: always
+    privileged: true
+
+  server:
+    image: node:8.12.0-alpine
+    expose:
+      - "3000"
+    env_file: .env
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: "npm start"
+    restart: always
