@@ -23,6 +23,8 @@ Small server written in _node_ that serves static files protected with Google OA
 
 ## Docker
 
+A Docker image can be build with `docker build -f Dockerfile.build -t node-express-statics-auth .`
+
 Run the project with Docker:
 
 ```
