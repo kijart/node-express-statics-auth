@@ -1,6 +1,6 @@
 {
   "name": "node-express-statics-auth",
-  "description": "",
+  "description": "Small server written in node that serves static files protected with Google OAuth2 authentication",
   "version": "1.0.0",
   "author": "Luis Miguel Vicente Fuentes <kijart@gmail.com>",
   "scripts": {
