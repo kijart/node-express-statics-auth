@@ -36,7 +36,7 @@ docker run -it --rm \
     node-express-statics-auth
 ```
 
-### Parameters
+### Parameters
 
 - -p 3000 - the port of the server
 - -v /app/.env - loads environment variables from .env
