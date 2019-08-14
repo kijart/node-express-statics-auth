@@ -1,7 +1,7 @@
 {
   "name": "node-express-statics-auth",
   "description": "Small server written in node that serves static files protected with Google OAuth2 authentication",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Luis Miguel Vicente Fuentes <kijart@gmail.com>",
   "scripts": {
     "start": "npm run start:pro",
