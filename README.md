@@ -4,7 +4,7 @@ Small server written in _node_ that serves static files protected with Google OA
 
 ## Setup
 
-1. Create a project and OAuth 2.0 client id and secret at https://console.developers.google.com
+1. Create a project and OAuth 2.0 client id and secret at [https://console.developers.google.com](https://console.developers.google.com)
 1. Create a `.env` file with the needed information (take `.env.example` as reference)
 1. Install project dependencies with `npm install`
 
@@ -23,11 +23,11 @@ Small server written in _node_ that serves static files protected with Google OA
 
 ## Docker
 
-A Docker image can be build with `docker build -f Dockerfile.build -t node-express-statics-auth .`
+A Docker image can be build with `docker build -f Dockerfile -t node-express-statics-auth .`
 
 Run the project with Docker:
 
-```
+```sh
 docker run -it --rm \
     -p 3000:3000 \
     -v $(pwd)/.env:/app/.env \
