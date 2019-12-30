@@ -14,6 +14,7 @@ COPY views/ /app/views/
 
 # Install dependencies
 RUN npm install
+RUN npm audit fix
 
 # Up the server
 ENTRYPOINT npm start
