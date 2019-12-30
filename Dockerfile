@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:12-alpine
 
 LABEL maintainer="Luis Miguel Vicente Fuentes <kijart@gmail.com>"
 
@@ -14,6 +14,7 @@ COPY views/ /app/views/
 
 # Install dependencies
 RUN npm install
+RUN npm audit fix
 
 # Up the server
 ENTRYPOINT npm start
