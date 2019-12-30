@@ -11,7 +11,7 @@ services:
     privileged: true
 
   server:
-    image: node:8-alpine
+    image: node:12-alpine
     expose:
       - "3000"
     env_file: .env

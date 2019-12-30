@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:12-alpine
 
 LABEL maintainer="Luis Miguel Vicente Fuentes <kijart@gmail.com>"
 
